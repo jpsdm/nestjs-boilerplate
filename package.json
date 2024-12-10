@@ -2,9 +2,14 @@
   "name": "nestjs-boilerplate",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "João Pedro <dev.jpsdm@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/jpsoarxs/nestjs-boilerplate/issues",
+    "email": "dev.jpsdm@gmail.com"
+  },
+  "homepage": "https://github.com/jpsoarxs/nestjs-boilerplate#readme",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -66,6 +71,10 @@
     "ts-node": "10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20.13.1",
+    "npm": ">=10.5.2"
   },
   "lint-staged": {
     "*.{ts,js}": "eslint --cache --fix",
