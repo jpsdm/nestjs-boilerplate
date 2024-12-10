@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "wallabyjs.console-ninja",
+    "grg.dotfiles",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "fill-labs.dependi",
+    "editorconfig.editorconfig"
+  ],
+  "unwantedRecommendations": []
+}

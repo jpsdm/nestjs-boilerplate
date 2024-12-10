@@ -1,0 +1,7 @@
+.gitignore
+Dockerfile
+dev-install.ps1
+dev-install.sh
+docker-compose.yml
+*.md
+.git/

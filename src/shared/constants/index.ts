@@ -1,0 +1,18 @@
+export const PASSWORD_SALT: number = 10;
+
+export enum C_E_PAGINATION_OPTION {
+  PER_PAGE = 10,
+  INITIAL_PAGE = 1,
+}
+
+export enum C_E_REPOSITORY_TYPES_CONNECTION {
+  ORM = 'ORM',
+}
+
+export const CONNECT_DB_DEFAULT: C_E_REPOSITORY_TYPES_CONNECTION =
+  C_E_REPOSITORY_TYPES_CONNECTION.ORM;
+
+export enum C_E_COLUMN_ORDER {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
