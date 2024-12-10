@@ -1,99 +1,206 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# NestJS Boilerplate
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![Static Badge](https://img.shields.io/badge/Node.js-20.13.1-green?logo=nodedotjs&logoColor=%235FA04E)
+![Static Badge](https://img.shields.io/badge/npm-10.5.2-%23CB3837?logo=npm&logoColor=%23CB3837)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este repositório fornece um boilerplate para aplicações construídas com [NestJS](https://nestjs.com/), estruturado de acordo com os princípios da Clean Architecture e SOLID. Além disso, utiliza [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/) para padronização de commits e segue a convenção de nomenclatura CamelCase.
 
-## Description
+## Estrutura de Pastas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A estrutura de pastas do projeto é organizada da seguinte forma:
 
-## Project setup
-
-```bash
-$ npm install
+```
+.husky/                       # Configurações do Husky para hooks do Git (pré-commit, pré-push, etc.)
+.vscode/                      # Configurações específicas para o Visual Studio Code
+dist/                         # Arquivos compilados gerados após a build
+logs/                         # Diretório para logs gerados pela aplicação
+scripts/                      # Scripts auxiliares para automações do projeto
+src/                          # Código-fonte principal da aplicação
+  ├── infra/                  # Camada de infraestrutura
+  │   ├── config/             # Configurações globais (variáveis, constantes de ambiente, etc.)
+  │   ├── database/           # Configurações e migrações do banco de dados
+  │   │   ├── migrations/     # Arquivos de migração do TypeORM
+  │   │   ├── typeorm/        # Configuração do TypeORM (Data Source, etc.)
+  │   ├── filters/            # Filtros para captura e tratamento de exceções globais
+  │   ├── logger/             # Implementação de log customizado (baseado no Winston ou outro logger)
+  │   ├── middlewares/        # Middlewares para manipulação de requisições/respostas
+  ├── modules/                # Módulos principais organizados por domínio
+  │   ├── user/               # Módulo responsável pelo gerenciamento de usuários
+  │   │   ├── application/    # Camada de aplicação do módulo
+  │   │   │   ├── http/       # Controladores HTTP
+  │   │   │   ├── mappers/    # Mapeadores (entidades <-> DTOs)
+  │   │   │   ├── ports/      # Interfaces que conectam camadas (ex.: casos de uso e repositórios)
+  │   │   │   └── use-case/   # Casde uso específicos do módulo
+  │   │   ├── domain/         # Camada de domínio
+  │   │   │   ├── dto/        # Data Transfer Objects (DTOs) do domínio
+  │   │   │   ├── entities/   # Entidades do domínio
+  │   │   │   ├── providers/  # Provedores de serviços específicos do domínioos
+  │   │   │   └── repository/ # Interfaces de repositórios do domínio
+  ├── shared/                 # Recursos compartilhados entre os módulos
+  │   ├── constants/          # Constantes globais da aplicação
+  │   ├── dtos/               # DTOs reutilizáveis em diversos módulos
+  │   ├── errors/             # Classes de erros e exceções customizadas
+  │   ├── repositories/       # Interfaces ou implementações de repositórios globais
+  │   ├── utils/              # Funções e helpers genéricos
+  │   ├── value-objects/      # Objetos de valor (ex.: CPF, CNPJ, E-mail)
+  ├── app.module.ts           # Módulo raiz da aplicação
+  ├── main.ts                 # Arquivo de entrada principal da aplicação
+.gitignore                    # Arquivos e diretórios que devem ser ignorados pelo Git
+.editorconfig                 # Regras para padronização de estilo de código no editor
+.env                          # Arquivo para variáveis de ambiente
+.eslintrc.js                  # Configuração do ESLint para análise de código estático
+.npmrc                        # Configuração para gerenciar o npm
+.prettierrc                   # Configuração do Prettier para formatação de código
+docker-compose.yml            # Configuração do Docker Compose para containers da aplicação
+Dockerfile                    # Arquivo para criação da imagem Docker da aplicação
+README.md                     # Documentação principal do projeto
+tsconfig.json                 # Configuração do TypeScript
+tsconfig.build.json           # Configuração específica do TypeScript para build
+package.json                  # Arquivo com configurações e dependências do projeto
 ```
 
-## Compile and run the project
+## Clean Architecture
 
-```bash
-# development
-$ npm run start
+A Clean Architecture promove a separação de responsabilidades em camadas, permitindo que cada uma seja independente e facilmente testável. No contexto deste projeto, as camadas são:
 
-# watch mode
-$ npm run start:dev
+- **Domain**: Contém as regras de negócio e entidades fundamentais, sem dependências externas.
+- **Application**: Implementa os casos de uso, orquestrando as operações do domínio.
+- **Infrastructure**: Inclui detalhes técnicos, como implementações de repositórios, configurações e serviços externos.
 
-# production mode
-$ npm run start:prod
+Essa organização facilita a manutenção e evolução do sistema, além de permitir testes mais eficazes.
+
+## Princípios SOLID
+
+O projeto adere aos princípios SOLID para garantir um código mais modular e de fácil manutenção:
+
+- **S**ingle Responsibility Principle: Cada classe ou módulo tem uma única responsabilidade.
+- **O**pen/Closed Principle: Entidades de software devem estar abertas para extensão, mas fechadas para modificação.
+- **L**iskov Substitution Principle: Objetos de uma classe devem poder ser substituídos por instâncias de suas subclasses sem afetar o funcionamento do programa.
+- **I**nterface Segregation Principle: Muitas interfaces específicas são melhores do que uma interface geral.
+- **D**ependency Inversion Principle: Dependa de abstrações, não de implementações concretas.
+
+## Commits Convencionais
+
+Utilizamos o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/) para manter a consistência nas mensagens de commit. As mensagens seguem o formato:
+
+```
+<tipo>(escopo opcional): <descrição>
 ```
 
-## Run tests
+Tipos comuns incluem:
+
+- **feat**: Adição de nova funcionalidade
+- **fix**: Correção de bug
+- **docs**: Alterações na documentação
+- **style**: Mudanças que não afetam a lógica do código (espaços em branco, formatação, etc.)
+- **refactor**: Mudanças que melhoram o código sem corrigir bugs ou adicionar funcionalidades
+- **test**: Adição ou correção de testes
+- **chore**: Atualizações de tarefas de build ou ferramentas auxiliares
+
+Para facilitar a criação de commits convencionais, o projeto utiliza o [Commitizen](https://github.com/commitizen/cz-cli). Para iniciar o assistente de commit, execute:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git commit
 ```
 
-## Deployment
+## Convenção de Nomenclatura
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+O projeto adota a convenção de nomenclatura CamelCase para nomear variáveis, funções e classes, visando consistência e legibilidade do código.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Variáveis de Ambiente
+
+As variáveis de ambiente necessárias para a aplicação estão definidas no arquivo `.env`. Certifique-se de configurar as seguintes variáveis:
+
+```
+PORT=3000
+NODE_ENV=development
+
+# App
+APP_NAME=boilerplate
+APP_VERSION=1.0.0
+APP_HOST=localhost
+
+# Database
+DB_NAME=boilerplate
+DB_USER=boiler
+DB_PASS=boiler123
+DB_HOST=127.0.0.1
+DB_PORT=5432
+```
+
+## Executando a Aplicação
+
+Para iniciar a aplicação em modo de desenvolvimento, utilize:
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Para iniciar a aplicação em modo de produção:
 
-## Resources
+```bash
+npm run build
+npm run start:prod
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## Configuração do Banco de Dados com Docker Compose
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Para subir o banco de dados PostgreSQL utilizando Docker Compose, siga os passos:
 
-## Support
+1. Crie um arquivo `docker-compose.yml` na raiz do projeto com o seguinte conteúdo:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+   ```yaml
+   version: '3.8'
 
-## Stay in touch
+   services:
+     db:
+       image: postgres:latest
+       container_name: postgres-container
+       environment:
+         - POSTGRES_DB=boilerplate
+         - POSTGRES_USER=boiler
+         - POSTGRES_PASSWORD=boiler123
+       volumes:
+         - postgres-data:/var/lib/postgresql/data
+       ports:
+         - '5432:5432'
+       networks:
+         - app-network
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+   volumes:
+     postgres-data:
 
-## License
+   networks:
+     app-network:
+       driver: bridge
+   ```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+2. Certifique-se de que as variáveis de ambiente no arquivo `.env` correspondem às configurações desejadas para o banco de dados.
+
+3. No terminal, execute o comando para iniciar o serviço:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+Este comando iniciará o container do PostgreSQL conforme as configurações especificadas.
+
+## Executando Migrações
+
+Para criar uma nova migração, utilize:
+
+```bash
+npm run migration:create <name>
+```
+
+Para aplicar as migrações pendentes ao banco de dados:
+
+```bash
+npm run migration:run
+```
+
+Para reverter a última migração aplicada:
+
+```bash
+npm run migration:revert
+```
