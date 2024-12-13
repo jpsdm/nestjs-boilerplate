@@ -15,6 +15,22 @@ services:
     networks:
       - app-network
 
+  api:
+    container_name: boilerplate-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - app-network
+
 volumes:
   postgres-data:
 

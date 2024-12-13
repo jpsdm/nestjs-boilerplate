@@ -1,7 +1,39 @@
-.gitignore
+# Node.js dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist
+build
+
+# Environment files
+.env.example
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor directories and files
+.vscode
+.idea
+*.sublime-workspace
+*.sublime-project
+
+# Test/coverage directories
+coverage
+*.seed.ts
+
+# Temporary files
+tmp
+*.swp
+
+# Dockerfile and Docker Compose files
 Dockerfile
-dev-install.ps1
-dev-install.sh
 docker-compose.yml
-*.md
-.git/
