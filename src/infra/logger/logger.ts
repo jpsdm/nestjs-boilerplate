@@ -1,6 +1,6 @@
 import { Logger as NestLogger } from '@nestjs/common';
 import { createLogger, format, transports } from 'winston';
-import * as DailyRotateFile from 'winston-daily-rotate-file';
+import DailyRotateFile from 'winston-daily-rotate-file';
 import { ILogData, TLogStatus } from './logger.module';
 
 /**
